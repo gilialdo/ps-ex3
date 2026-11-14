@@ -1,3 +1,4 @@
+use rand::distr::{Alphanumeric, SampleString};
 use std::io::{self, Write};
 
 fn main() -> io::Result<()> {
@@ -11,7 +12,8 @@ fn main() -> io::Result<()> {
         .trim()
         .parse::<usize>()
         .map_err(|erro| io::Error::new(io::ErrorKind::InvalidInput, erro))?;
-    println!("Comprimento solicitado: {comprimento}");
+    let senha = Alphanumeric.sample_string(&mut rand::rng(), comprimento);
+    println!("{senha}");
 
     Ok(())
 }
